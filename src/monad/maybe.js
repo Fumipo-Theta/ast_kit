@@ -1,7 +1,6 @@
-import M from "./m"
-import Monad from "./monad"
+import { M, Monad } from "./monad"
 
-class Maybe extends Monad {
+export class Maybe extends Monad {
     constructor(a) {
         super(a)
     }
@@ -40,7 +39,7 @@ export class Nothing extends Maybe {
     }
 
     static return(_) {
-        return new Nothing();
+        return new Nothing(_);
     }
 
 

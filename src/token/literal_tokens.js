@@ -1,4 +1,5 @@
 import Operand from "./operand_token.js"
+import { Just, Nothing } from "../monad/maybe"
 
 export class Num extends Operand {
     constructor(value) {
@@ -6,7 +7,10 @@ export class Num extends Operand {
     }
 
     expr(_, __) {
-        return parseFloat(this.value)
+        const number = parseFloat(this.value)
+        if (number === NaN) return Nothing.return()
+        if (number === undefined) return Nothing.return()
+        return Just.return(number)
     }
 
 }

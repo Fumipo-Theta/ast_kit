@@ -10,8 +10,4 @@ export default class Operand extends Token {
         if (table instanceof Object) return table[this.value]
         return this.value
     }
-
-    static isInstance(token) {
-        return (token instanceof Operand)
-    }
 }
