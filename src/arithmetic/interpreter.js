@@ -1,6 +1,6 @@
 import Operand from "../token/operand_token.js"
 import { BraceStart } from "../token/brace_tokens.js"
-import { Subtractor, Multiplier } from "../token/arithmetic_tokens.js"
+import { Subtractor, Multiplier } from "./arithmetic_tokens.js"
 import len from "../len.js"
 import { lastOf, withoutLastOf } from "../array_util.js"
 

@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "set NODE_ENV=test & jest --no-cache"
+        "test": "jest"
     },
     "keywords": [],
     "author": "",

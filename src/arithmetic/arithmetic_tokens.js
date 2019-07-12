@@ -1,4 +1,6 @@
-import Operator from "./operator_token.js"
+import Operator from "../token/operator_token"
+
+
 
 export class Adder extends Operator {
     constructor() {
@@ -6,7 +8,7 @@ export class Adder extends Operator {
     }
 
     expr(left, right) {
-        return left + right
+        return left.value + right.value
     }
 }
 

@@ -1,7 +1,7 @@
-import Operand from "./operand_token.js"
-import { BraceStart, BraceEnd } from "./brace_tokens.js"
-import len from "../len.js"
-import { lastOf } from "../array_util.js"
+import Operand from "../token/operand_token"
+import { BraceStart, BraceEnd } from "../token/brace_tokens"
+import len from "../len"
+import { lastOf } from "../array_util"
 
 /**
  *
@@ -9,7 +9,7 @@ import { lastOf } from "../array_util.js"
  * @param {bool?} verbose
  * @return {Array<Token>}
  */
-export default function rearrangeTokensToRPN(_tokens, verbose = false) {
+export default function rearrangeTokens(_tokens, verbose = false) {
     const stack = []
     const buffer = []
     const tokens = [..._tokens]
