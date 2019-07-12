@@ -1,4 +1,4 @@
-import { Adder, Subtractor, Multiplier, Divider } from "../src/arithmetic/monadic/tokens"
+import { Adder, Subtractor, Multiplier, Divider } from "../src/arithmetic/maybe/tokens"
 import { Just, Nothing } from "../src/monad/maybe"
 
 const two = Just.return(2)
@@ -10,7 +10,7 @@ describe("Arithmetic token test", () => {
         describe("adder.expr(2,3)", () => {
             it("should be 2 + 3 = Just.return(5)", () => {
                 const adder = new Adder("+")
-                expect(adder.expr(two, three)).toEqual(Just.return(5))
+                expect(adder.expr()(two, three)).toEqual(Just.return(5))
             })
         })
     })
@@ -19,7 +19,7 @@ describe("Arithmetic token test", () => {
         describe("subtractor.expr(2,3)", () => {
             it("should be 2 - 3 = Just.return(-1)", () => {
                 const subtractor = new Subtractor("-")
-                expect(subtractor.expr(two, three)).toEqual(Just.return(-1))
+                expect(subtractor.expr()(two, three)).toEqual(Just.return(-1))
             })
         })
     })
@@ -28,7 +28,7 @@ describe("Arithmetic token test", () => {
         describe("multiplier.expr(2,3)", () => {
             it("should be 2 * 3 = Just.return(6)", () => {
                 const multiplier = new Multiplier("*")
-                expect(multiplier.expr(two, three)).toEqual(Just.return(6))
+                expect(multiplier.expr()(two, three)).toEqual(Just.return(6))
             })
         })
     })
@@ -37,14 +37,14 @@ describe("Arithmetic token test", () => {
         describe("divider.expr(2,3)", () => {
             it("should be 2 / 3 = Just.return(0.66666...)", () => {
                 const divider = new Divider("/")
-                expect(divider.expr(two, three)).toEqual(Just.return(2 / 3))
+                expect(divider.expr()(two, three)).toEqual(Just.return(2 / 3))
             })
         })
 
         describe("divider.expr(2,0)", () => {
             it("should be 2 / 0 = Nothing.return()", () => {
                 const divider = new Divider("/")
-                expect(divider.expr(two, zero)).toEqual(Nothing.return())
+                expect(divider.expr()(two, zero)).toEqual(Nothing.return())
             })
         })
     })

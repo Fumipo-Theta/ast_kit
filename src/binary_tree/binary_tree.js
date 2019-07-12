@@ -17,7 +17,4 @@ export default class BinaryTree {
         return this._right
     }
 
-    evaluate() {
-    }
-
 }

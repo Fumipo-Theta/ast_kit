@@ -5,8 +5,4 @@ export default class LiteralNode extends BinaryTree {
     constructor(value, _, __) {
         super(value, new EmptyNode(), new EmptyNode())
     }
-
-    evaluate() {
-        return this.value.expr()
-    }
 }

@@ -1,8 +1,9 @@
 import VariableTable from "./variable_table.js"
 
 export default class AST {
-    constructor(parser) {
+    constructor(parser, evaluator) {
         this._parser = parser
+        this._evaluator = evaluator
         this._tree
         this._variableTable = new VariableTable()
         this._variableUpdator = this._variableTable.getUpdator()
@@ -16,7 +17,7 @@ export default class AST {
 
     evaluate(variableTable) {
         if (variableTable != undefined) this._variableUpdator(variableTable)
-        return this.tree.evaluate()
+        return this._evaluator(this.tree)
     }
 
     get tree() {

@@ -8,7 +8,7 @@
 /**
  *
  * @param {Token} _TokenCls
- * @return {Array<any> => new Token}
+ * @return {(...any) => new Token}
  */
 export default function tokenFactory(_TokenCls) {
     return (...arg) => new _TokenCls(...arg)

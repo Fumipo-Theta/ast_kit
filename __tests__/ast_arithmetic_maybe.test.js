@@ -1,9 +1,8 @@
-import AST from "../src/ast"
-import parser from "../src/arithmetic/monadic/parser"
+import MonadicAST from "../src/arithmetic/maybe/ast"
 import { Just, Nothing, Raise } from "../src/monad/maybe"
 
 describe("new AST().parse((1-4) * (3-7) / x)", () => {
-    const ast = new AST(parser).parse("(1-4) * (3-7) / x")
+    const ast = new MonadicAST().parse("(1-4) * (3-7) / x")
 
     describe(".evaluate({})", () => {
         it("should raise Error because of undefined and be Raise.return()", () => {
@@ -31,7 +30,7 @@ describe("new AST().parse((1-4) * (3-7) / x)", () => {
 
     describe(".evaluate({x:'a'})", () => {
         it("should raise TypeError and be Raise.return()", () => {
-            expect(ast.evaluate({ x: 'a' })).toBeInstanceOf(Raise)
+            expect(ast.evaluate({ x: "a" })).toBeInstanceOf(Raise)
         })
     })
 })

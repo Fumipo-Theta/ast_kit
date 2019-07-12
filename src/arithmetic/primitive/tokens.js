@@ -1,70 +1,33 @@
 import Operator from "../../token/operator_token"
 import Operand from "../../token/operand_token"
-import { Maybe, Just, Nothing, Raise } from "../../monad/maybe"
 import VariableTable from "../../variable_table"
+import { ISubtractor, IMultiplier, IVariable } from "../i_tokens"
 
-
+const add = (mx, my) => mx + my
+const subtract = (mx, my) => mx - my
+const multiple = (mx, my) => mx * my
+const divide = (mx, my) => mx / my
 export class Adder extends Operator {
     constructor() {
-        super(1, "+")
-    }
-
-    /**
-     *
-     * @param {number} left
-     * @param {number} right
-     * @return {number}
-     */
-    expr(left, right) {
-        return left + right
+        super(add, 1, "+")
     }
 }
 
-export class Subtractor extends Operator {
+export class Subtractor extends ISubtractor {
     constructor() {
-        super(1, "-")
-    }
-
-    /**
-     *
-     * @param {number} left
-     * @param {number} right
-     * @return {number}
-     */
-    expr(left, right) {
-        return left - right
+        super(subtract, 1, "-")
     }
 }
 
-export class Multiplier extends Operator {
+export class Multiplier extends IMultiplier {
     constructor() {
-        super(2, "*")
-    }
-
-    /**
-     *
-     * @param {number} left
-     * @param {number} right
-     * @return {number}
-     */
-    expr(left, right) {
-        return left * right
+        super(multiple, 2, "*")
     }
 }
 
 export class Divider extends Operator {
     constructor() {
-        super(2, "/")
-    }
-
-    /**
-     *
-     * @param {number} left
-     * @param {number} right
-     * @return {number}
-     */
-    expr(left, right) {
-        return left / right
+        super(divide, 2, "/")
     }
 }
 
@@ -75,23 +38,15 @@ export class Num extends Operand {
     }
 
     /**
-     *
-     * @param {any} _
-     * @param {any} __
-     * @return {number}
+     * @return {() => number}
      */
-    expr(_, __) {
-        return parseFloat(this.value)
+    expr() {
+        return () => parseFloat(this.value)
     }
 
 }
 
 
-function getFromCollection(table, key) {
-    if (table instanceof Map) return table.get(key)
-    if (table instanceof VariableTable) return table.get(key)
-    if (table instanceof Object) return table[key]
-}
 
 /**
  *
@@ -100,26 +55,24 @@ function getFromCollection(table, key) {
  */
 function safeGet(table) {
     return function (key) {
-        const value = getFromCollection(table, key)
+        const value = table.get(key)
         if (value === undefined) throw new Error(`Undefined key ${key}.`)
         if (typeof value === "string") throw new TypeError(`Variable ${key} is not number.`)
         return value
     }
 }
 
-export class Variable extends Operand {
+export class Variable extends IVariable {
     constructor(value) {
         super(value)
     }
 
     /**
      *
-     * @param {VariableTable} table
-     * @param {any} _
-     * @return {number}
+     * @return {() => number}
      */
-    expr(table, _) {
-        return safeGet(table)(this.value)
+    expr(table) {
+        return () => safeGet(table)(this.value)
     }
 
 }

@@ -1,32 +1,12 @@
-import tokenFactory from "../src/token/token_factory"
-import generateTokenizer from "../src/token/generate_tokenizer"
-import interpreter from "../src/arithmetic/monadic/interpreter"
-import postInterpretNumberAndVariable from "../src/arithmetic/monadic/post_interpret_number_and_variable"
-import checkSyntaxError from "../src/arithmetic/syntax_checker"
-
-import { Adder, Subtractor, Multiplier, Divider, Num, Variable } from "../src/arithmetic/monadic/tokens"
+import tokenizer from "../src/arithmetic/maybe/tokenizer"
 import { BraceStart, BraceEnd } from "../src/token/brace_tokens"
-import Operand from "../src/token/operand_token"
+import { Adder, Subtractor, Multiplier, Divider, Num, Variable } from "../src/arithmetic/maybe/tokens"
 
 import concatTokens from "../src/token/concat_tokens"
 import rearrangeTokens from "../src/arithmetic/rearrange_tokens_to_RPN"
 
-const syntax_rule = {
-    "+": tokenFactory(Adder),
-    "-": tokenFactory(Subtractor),
-    "*": tokenFactory(Multiplier),
-    "/": tokenFactory(Divider),
-    "(": tokenFactory(BraceStart),
-    "{": tokenFactory(BraceStart),
-    "[": tokenFactory(BraceStart),
-    ")": tokenFactory(BraceEnd),
-    "}": tokenFactory(BraceEnd),
-    "]": tokenFactory(BraceEnd),
-    "default": tokenFactory(Operand)
-}
 
 describe('tokenizer("(-4+3) * (x - y) - z / 5")', () => {
-    const tokenizer = generateTokenizer(syntax_rule, interpreter, postInterpretNumberAndVariable, checkSyntaxError)
     const expression = "(-4+3) * (x - y) - z / 5"
     const expectedTokens = [
         new BraceStart("("),
@@ -90,4 +70,22 @@ describe('tokenizer("(-4+3) * (x - y) - z / 5")', () => {
         })
     })
 
+})
+
+describe("tokenizer('4+-3')", () => {
+    it("should throw SyntaxError", () => {
+        expect(() => { tokenizer('4+-3') }).toThrowError(SyntaxError)
+    })
+})
+
+describe("tokenizer('(4-3')", () => {
+    it("should throw SyntaxError", () => {
+        expect(() => { tokenizer('(4-3') }).toThrowError(SyntaxError)
+    })
+})
+
+describe("tokenizer('(4-3))')", () => {
+    it("should throw SyntaxError", () => {
+        expect(() => { tokenizer('(4-3))') }).toThrowError(SyntaxError)
+    })
 })
