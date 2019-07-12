@@ -1,11 +1,3 @@
-function updateDict(dict, diff) {
-
-}
-
-function updateCollection(table, tableDiff) {
-
-}
-
 export default class VariableTable {
     constructor(variable_dict) {
         this._table = variable_dict

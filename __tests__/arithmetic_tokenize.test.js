@@ -1,14 +1,12 @@
 import tokenFactory from "../src/token/token_factory"
 import generateTokenizer from "../src/token/generate_tokenizer"
-import interpreter from "../src/arithmetic/interpreter"
-import postInterpretNumberAndVariable from "../src/arithmetic/post_interpret_number_and_variable"
+import interpreter from "../src/arithmetic/monadic/interpreter"
+import postInterpretNumberAndVariable from "../src/arithmetic/monadic/post_interpret_number_and_variable"
 import checkSyntaxError from "../src/arithmetic/syntax_checker"
 
-import { Adder, Subtractor, Multiplier, Divider } from "../src/arithmetic/arithmetic_tokens"
+import { Adder, Subtractor, Multiplier, Divider, Num, Variable } from "../src/arithmetic/monadic/tokens"
 import { BraceStart, BraceEnd } from "../src/token/brace_tokens"
 import Operand from "../src/token/operand_token"
-import { Num } from "../src/token/literal_tokens"
-import Variable from "../src/token/variable_token"
 
 import concatTokens from "../src/token/concat_tokens"
 import rearrangeTokens from "../src/arithmetic/rearrange_tokens_to_RPN"

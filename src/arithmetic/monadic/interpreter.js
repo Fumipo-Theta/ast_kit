@@ -1,8 +1,8 @@
-import Operand from "../token/operand_token.js"
-import { BraceStart } from "../token/brace_tokens.js"
-import { Subtractor, Multiplier } from "./arithmetic_tokens.js"
-import len from "../len.js"
-import { lastOf, withoutLastOf } from "../array_util.js"
+import Operand from "../../token/operand_token"
+import { BraceStart } from "../../token/brace_tokens"
+import { Subtractor, Multiplier } from "./tokens"
+import len from "../../len"
+import { lastOf, withoutLastOf } from "../../array_util"
 
 /**
  * @parameter {Array<Token>} acc

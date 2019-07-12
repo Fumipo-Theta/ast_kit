@@ -1,5 +1,5 @@
 import AST from "../src/ast"
-import parser from "../src/arithmetic/parser"
+import parser from "../src/arithmetic/monadic/parser"
 import { Just, Nothing, Raise } from "../src/monad/maybe"
 
 describe("new AST().parse((1-4) * (3-7) / x)", () => {

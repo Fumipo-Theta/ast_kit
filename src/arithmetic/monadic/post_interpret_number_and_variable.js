@@ -1,6 +1,5 @@
-import Operand from "../token/operand_token.js"
-import { Num } from "../token/literal_tokens.js"
-import Variable from "../token/variable_token.js"
+import Operand from "../../token/operand_token"
+import { Num, Variable } from "./tokens"
 
 /**
  *

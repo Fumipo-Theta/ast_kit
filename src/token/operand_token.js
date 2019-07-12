@@ -5,9 +5,7 @@ export default class Operand extends Token {
         super(value)
     }
 
-    expr(table, _) {
-        if (table instanceof Map) return table.get(this.value)
-        if (table instanceof Object) return table[this.value]
+    expr(_, __) {
         return this.value
     }
 }
