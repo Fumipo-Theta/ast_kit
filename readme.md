@@ -9,8 +9,10 @@ AST インスタンスを作成する際には, 文字列で表された式か�
 ```javascript
 import MaybeAST from "./src/arithmetic/maybe/ast"
 
-const ast = new MaybeAST(parser, evaluator)
-ast.parse("(x-3)*(x-4)")
-ast.evaluate({x:3}) // Just.return(0)
-ast.evaluate({}) // Nothing.return()
+const maybeAST = new MaybeAST(parser, evaluator)
+maybeAST.parse("(x-3)*(x-4)")
+maybeAST.evaluate({x:3}) // Just.return(0)
+maybeAST.evaluate({}) // Nothing.return()
 ```
+
+## parserの動作

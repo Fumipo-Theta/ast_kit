@@ -1,9 +1,7 @@
-import AST from "../src/ast"
-import parser from "../src/arithmetic/primitive/parser"
-import evaluator from "../src/arithmetic/evaluator"
+import AST from "../src/arithmetic/primitive/ast"
 
 describe("new AST().parse((1-4) * (3-7) / x)", () => {
-    const ast = new AST(parser, evaluator).parse("(1-4) * (3-7) / x")
+    const ast = new AST().parse("(1-4) * (3-7) / x")
 
     describe(".evaluate({})", () => {
         it("should raise Error because of undefined key", () => {
