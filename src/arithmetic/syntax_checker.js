@@ -6,7 +6,8 @@ import concatTokens from "../token/concat_tokens.js"
 
 function confirmParenthesesCorrespondency(tokens) {
     if (tokens.filter(e => e instanceof BraceStart).length !== tokens.filter(e => e instanceof BraceEnd).length) {
-        throw new SyntaxError("Parentheses must be closed.")
+        //console.log(tokens.filter(e => e instanceof BraceStart).length, tokens.filter(e => e instanceof BraceEnd).length)
+        throw new SyntaxError(`Parentheses must be closed. ${concatTokens(tokens)}`)
     }
 }
 

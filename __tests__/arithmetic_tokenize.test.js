@@ -1,6 +1,6 @@
-import tokenizer from "../src/arithmetic/maybe/tokenizer"
+import tokenizer from "../src/arithmetic/primitive/tokenizer"
 import { BraceStart, BraceEnd } from "../src/token/brace_tokens"
-import { Adder, Subtractor, Multiplier, Divider, Num, Variable } from "../src/arithmetic/maybe/tokens"
+import { Adder, Subtractor, Multiplier, Divider, Num, Variable } from "../src/arithmetic/primitive/tokens"
 
 import concatTokens from "../src/token/concat_tokens"
 import rearrangeTokens from "../src/arithmetic/rearrange_tokens_to_RPN"
@@ -70,6 +70,34 @@ describe('tokenizer("(-4+3) * (x - y) - z / 5")', () => {
         })
     })
 
+})
+
+describe("tokenizer('({x/y}+1)*5')", () => {
+    it("should be", () => {
+        expect(tokenizer('({x/y}+1) * 5')).toEqual([
+            new BraceStart("("),
+            new Variable("x/y"),
+            new Adder("+"),
+            new Num("1"),
+            new BraceEnd(")"),
+            new Multiplier("*"),
+            new Num("5"),
+        ])
+    })
+})
+
+describe("tokenizer('({-x/y}+1)*5')", () => {
+    it("should be", () => {
+        expect(tokenizer('({-x/y}+1) * 5')).toEqual([
+            new BraceStart("("),
+            new Variable("-x/y"),
+            new Adder("+"),
+            new Num("1"),
+            new BraceEnd(")"),
+            new Multiplier("*"),
+            new Num("5"),
+        ])
+    })
 })
 
 describe("tokenizer('4+-3')", () => {

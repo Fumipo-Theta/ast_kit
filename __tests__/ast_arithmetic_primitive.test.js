@@ -33,3 +33,13 @@ describe("new AST().parse((1-4) * (3-7) / x)", () => {
         })
     })
 })
+
+describe("new AST('({x/y} + 1) * 5')", () => {
+    const ast = new AST().parse('({x/y} + 1) * 5')
+
+    describe("ast.evaluate({'x/y' : 2})", () => {
+        it("should be (2 + 1) * 5 = 15", () => {
+            expect(ast.evaluate({ 'x/y': 2 })).toBe(15)
+        })
+    })
+})

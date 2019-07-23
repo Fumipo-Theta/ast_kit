@@ -58,6 +58,7 @@ function safeGet(table) {
         const value = table.get(key)
         if (value === undefined) throw new Error(`Undefined key ${key}.`)
         if (typeof value === "string") {
+            if (isNaN(value)) throw new TypeError(`Variable ${key} is not number.`)
             try {
                 return parseFloat(value)
             } catch (e) {

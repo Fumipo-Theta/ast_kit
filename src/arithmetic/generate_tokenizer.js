@@ -23,7 +23,7 @@ export default function generateTokenizer(syntax_rule, interpriter, postprocesso
         return syntax_error_check(
             expression.split("")
                 .reduce(generateToken(syntax_rule), [])
-                .reduce(interpriter, [])
+                .reduce(interpriter, { mode: "", tokens: [] })["tokens"]
                 .map(postprocessor)
         )
     }

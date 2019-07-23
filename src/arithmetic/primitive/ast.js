@@ -9,10 +9,7 @@ export default class PrimitiveAST extends AST {
     }
 
     evaluate(...arg) {
-        try {
-            return super.evaluate(...arg)
-        } catch (e) {
-            if (e instanceof TypeError) return NaN
-        }
+        return super.evaluate(...arg)
+
     }
 }
