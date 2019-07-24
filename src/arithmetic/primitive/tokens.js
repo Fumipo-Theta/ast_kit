@@ -32,7 +32,7 @@ export class Divider extends Operator {
 }
 
 
-export class Num extends Operand {
+export class Literal extends Operand {
     constructor(value) {
         super(value)
     }
@@ -44,8 +44,11 @@ export class Num extends Operand {
         return () => parseFloat(this.value)
     }
 
-}
+    static match(expression) {
+        return expression.match(/^-?[\d]+\.?[\d]{0,}$/)
+    }
 
+}
 
 
 /**
@@ -82,4 +85,11 @@ export class Variable extends IVariable {
         return () => safeGet(table)(this.value)
     }
 
+}
+
+export class IgnoreToken {
+
+    static match(token) {
+        return token.value.match(/\s+/)
+    }
 }

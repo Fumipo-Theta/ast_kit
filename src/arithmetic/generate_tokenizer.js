@@ -18,13 +18,12 @@ function generateToken(syntax) {
  * @param {Array<Token> => Array<Token>} syntax_error_check
  * @return {string => Array<Token>}
  */
-export default function generateTokenizer(syntax_rule, interpriter, postprocessor = e => e, syntax_error_check = e => e) {
+export default function generateTokenizer(syntax_rule, interpriter, syntax_error_check = e => e) {
     return function tokenize(expression) {
         return syntax_error_check(
             expression.split("")
                 .reduce(generateToken(syntax_rule), [])
                 .reduce(interpriter, { mode: "", tokens: [] })["tokens"]
-                .map(postprocessor)
         )
     }
 }

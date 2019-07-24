@@ -33,7 +33,7 @@ export class Divider extends IDivider {
 }
 
 
-export class Num extends Operand {
+export class Literal extends Operand {
     constructor(value) {
         super(value)
     }
@@ -47,6 +47,10 @@ export class Num extends Operand {
         if (number === NaN) return Nothing.return()
         if (number === undefined) return Nothing.return()
         return () => Just.return(number)
+    }
+
+    static match(expression) {
+        return expression.match(/^-?[\d]+\.?[\d]{0,}$/)
     }
 
 }
@@ -80,4 +84,11 @@ export class Variable extends IVariable {
         return () => safeGet(table)(this.value)
     }
 
+}
+
+export class IgnoreToken {
+
+    static match(token) {
+        return token.value.match(/\s+/)
+    }
 }

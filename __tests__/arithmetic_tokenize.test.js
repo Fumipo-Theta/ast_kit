@@ -1,6 +1,6 @@
 import tokenizer from "../src/arithmetic/primitive/tokenizer"
 import { BraceStart, BraceEnd } from "../src/token/brace_tokens"
-import { Adder, Subtractor, Multiplier, Divider, Num, Variable } from "../src/arithmetic/primitive/tokens"
+import { Adder, Subtractor, Multiplier, Divider, Literal, Variable } from "../src/arithmetic/primitive/tokens"
 
 import concatTokens from "../src/token/concat_tokens"
 import rearrangeTokens from "../src/arithmetic/rearrange_tokens_to_RPN"
@@ -10,11 +10,11 @@ describe('tokenizer("(-4+3) * (x - y) - z / 5")', () => {
     const expression = "(-4+3) * (x - y) - z / 5"
     const expectedTokens = [
         new BraceStart("("),
-        new Num("-1"),
+        new Literal("-1"),
         new Multiplier("*"),
-        new Num("4"),
+        new Literal("4"),
         new Adder("+"),
-        new Num("3"),
+        new Literal("3"),
         new BraceEnd(")"),
 
         new Multiplier("*"),
@@ -28,21 +28,21 @@ describe('tokenizer("(-4+3) * (x - y) - z / 5")', () => {
         new Subtractor("-"),
         new Variable("z"),
         new Divider("/"),
-        new Num("5")
+        new Literal("5")
     ]
 
     const expectedRPNizedTokens = [
-        new Num("-1"),
-        new Num("4"),
+        new Literal("-1"),
+        new Literal("4"),
         new Multiplier("*"),
-        new Num("3"),
+        new Literal("3"),
         new Adder("+"),
         new Variable("x"),
         new Variable("y"),
         new Subtractor("-"),
         new Multiplier("*"),
         new Variable("z"),
-        new Num("5"),
+        new Literal("5"),
         new Divider("/"),
         new Subtractor("-"),
     ]
@@ -78,10 +78,10 @@ describe("tokenizer('({x/y}+1)*5')", () => {
             new BraceStart("("),
             new Variable("x/y"),
             new Adder("+"),
-            new Num("1"),
+            new Literal("1"),
             new BraceEnd(")"),
             new Multiplier("*"),
-            new Num("5"),
+            new Literal("5"),
         ])
     })
 })
@@ -92,10 +92,10 @@ describe("tokenizer('({-x/y}+1)*5')", () => {
             new BraceStart("("),
             new Variable("-x/y"),
             new Adder("+"),
-            new Num("1"),
+            new Literal("1"),
             new BraceEnd(")"),
             new Multiplier("*"),
-            new Num("5"),
+            new Literal("5"),
         ])
     })
 })
