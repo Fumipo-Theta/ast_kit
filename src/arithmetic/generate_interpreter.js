@@ -34,6 +34,15 @@ export default function generateInterpreter(tokenRule) {
             if (acc.mode === "variable") {
                 return { mode: acc.mode, tokens: [new tokenRule.Variable(e.value)] }
             } else {
+                if (e instanceof Operand) {
+                    return {
+                        mode: acc.mode, tokens: [
+                            tokenRule.Literal.match(e.value)
+                                ? new tokenRule.Literal(e.value)
+                                : new tokenRule.Variable(e.value)
+                        ]
+                    }
+                }
                 return (e instanceof ISubtractor)
                     ? { mode: acc.mode, tokens: [new tokenRule.Literal(-1), new tokenRule.Multiplier()] }
                     : { mode: acc.mode, tokens: [e] }
@@ -68,6 +77,7 @@ export default function generateInterpreter(tokenRule) {
                 ? new tokenRule.Literal(e.value)
                 : new tokenRule.Variable(e.value)
             return { mode: acc.mode, tokens: [...acc.tokens, nextOperand] }
+
         } else {
             return { mode: acc.mode, tokens: [...acc.tokens, e] }
         }
