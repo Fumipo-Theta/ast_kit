@@ -1,7 +1,8 @@
 import VariableTable from "./variable_table.js"
 
 export default class AST {
-    constructor(parser, evaluator) {
+    constructor(parser, evaluator, preprocessor = a => a) {
+        this._preprocessor = preprocessor
         this._parser = parser
         this._evaluator = evaluator
         this._tree
@@ -11,7 +12,7 @@ export default class AST {
     }
 
     parse(expression) {
-        this._tree = this._parser(this._variableTable)(expression)
+        this._tree = this._parser(this._variableTable)(this._preprocessor(expression))
         return this
     }
 
