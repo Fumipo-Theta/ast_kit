@@ -38,7 +38,7 @@ export default function rearrangeTokens(_tokens, verbose = false) {
 
         } else {
             while (len(stack) > 0) {
-                if (lastOf(stack).priority > token.priority) {
+                if (lastOf(stack).priority >= token.priority) {
                     let poped = stack.pop()
                     buffer.push(poped)
                 } else {
